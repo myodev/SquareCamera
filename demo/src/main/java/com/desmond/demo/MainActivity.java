@@ -13,12 +13,16 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Environment;
 import android.view.Display;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.desmond.squarecamera.CameraActivity;
 import com.desmond.squarecamera.ImageUtility;
+
+import java.io.File;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -88,7 +92,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void launch() {
+
+        File mediaStorageDir = new File(
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                "Bla"
+        );
+
         Intent startCustomCameraIntent = new Intent(this, CameraActivity.class);
+        startCustomCameraIntent.putExtra(CameraActivity.EXTRA_IMAGE_FOLDER, mediaStorageDir.getPath());
         startActivityForResult(startCustomCameraIntent, REQUEST_CAMERA);
     }
 

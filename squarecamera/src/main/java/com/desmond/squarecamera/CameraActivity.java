@@ -10,6 +10,7 @@ import android.view.View;
 public class CameraActivity extends AppCompatActivity {
 
     public static final String TAG = CameraActivity.class.getSimpleName();
+    public static final String EXTRA_IMAGE_FOLDER = "extra_image_folder";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +25,7 @@ public class CameraActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fragment_container, CameraFragment.newInstance(), CameraFragment.TAG)
+                    .replace(R.id.fragment_container, CameraFragment.newInstance(getIntent().getStringExtra(EXTRA_IMAGE_FOLDER)), CameraFragment.TAG)
                     .commit();
         }
     }

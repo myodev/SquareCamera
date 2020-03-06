@@ -16,6 +16,8 @@ public class ImageParameters implements Parcelable {
     public int mCoverHeight, mCoverWidth;
     public int mPreviewHeight, mPreviewWidth;
 
+    public String folderPath;
+
     public ImageParameters(Parcel in) {
         mIsPortrait = (in.readByte() == 1);
 
@@ -26,6 +28,8 @@ public class ImageParameters implements Parcelable {
         mCoverWidth = in.readInt();
         mPreviewHeight = in.readInt();
         mPreviewWidth = in.readInt();
+
+        folderPath = in.readString();
     }
 
     public ImageParameters() {}
@@ -54,13 +58,16 @@ public class ImageParameters implements Parcelable {
         imageParameters.mPreviewHeight = mPreviewHeight;
         imageParameters.mPreviewWidth = mPreviewWidth;
 
+        imageParameters.folderPath = folderPath;
+
         return imageParameters;
     }
 
     public String getStringValues() {
         return "is Portrait: " + mIsPortrait + "," +
                 "\ncover height: " + mCoverHeight + " width: " + mCoverWidth
-                + "\npreview height: " + mPreviewHeight + " width: " + mPreviewWidth;
+                + "\npreview height: " + mPreviewHeight + " width: " + mPreviewWidth
+                + "\nfolder path: " + folderPath;
     }
 
     @Override
@@ -79,6 +86,8 @@ public class ImageParameters implements Parcelable {
         dest.writeInt(mCoverWidth);
         dest.writeInt(mPreviewHeight);
         dest.writeInt(mPreviewWidth);
+
+        dest.writeString(folderPath);
     }
 
     public static final Creator<ImageParameters> CREATOR = new Parcelable.Creator<ImageParameters>() {

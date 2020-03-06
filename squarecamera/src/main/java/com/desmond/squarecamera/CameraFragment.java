@@ -40,6 +40,8 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
     private static final int PICTURE_SIZE_MAX_WIDTH = 1280;
     private static final int PREVIEW_SIZE_MAX_WIDTH = 640;
 
+    private static final String BUNDLE_FOLDER_PATH = "bundle_folder_path";
+
     private int mCameraID;
     private String mFlashMode;
     private Camera mCamera;
@@ -52,8 +54,14 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
 
     private CameraOrientationListener mOrientationListener;
 
-    public static Fragment newInstance() {
-        return new CameraFragment();
+    public static Fragment newInstance(String path) {
+        final Fragment fragment = new CameraFragment();
+        final Bundle bundle = new Bundle();
+        if(path != null) {
+            bundle.putString(BUNDLE_FOLDER_PATH, path);
+        }
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     public CameraFragment() {}
@@ -74,6 +82,9 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
             mCameraID = getBackCameraID();
             mFlashMode = CameraSettingPreferences.getCameraFlashMode(getActivity());
             mImageParameters = new ImageParameters();
+            if(getArguments() != null){
+                mImageParameters.folderPath = getArguments().getString(BUNDLE_FOLDER_PATH, null);
+            }
         } else {
             mCameraID = savedInstanceState.getInt(CAMERA_ID_KEY);
             mFlashMode = savedInstanceState.getString(CAMERA_FLASH_KEY);

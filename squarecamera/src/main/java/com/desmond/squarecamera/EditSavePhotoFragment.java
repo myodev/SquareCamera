@@ -31,6 +31,8 @@ public class EditSavePhotoFragment extends Fragment {
 
     private static final int REQUEST_STORAGE = 1;
 
+    private ImageParameters imageParameters;
+
     public static Fragment newInstance(byte[] bitmapByteArray, int rotation,
                                        @NonNull ImageParameters parameters) {
         Fragment fragment = new EditSavePhotoFragment();
@@ -58,7 +60,7 @@ public class EditSavePhotoFragment extends Fragment {
 
         int rotation = getArguments().getInt(ROTATION_KEY);
         byte[] data = getArguments().getByteArray(BITMAP_KEY);
-        ImageParameters imageParameters = getArguments().getParcelable(IMAGE_INFO);
+        imageParameters = getArguments().getParcelable(IMAGE_INFO);
 
         if (imageParameters == null) {
             return;
@@ -126,7 +128,7 @@ public class EditSavePhotoFragment extends Fragment {
                 ImageView photoImageView = (ImageView) view.findViewById(R.id.photo);
 
                 Bitmap bitmap = ((BitmapDrawable) photoImageView.getDrawable()).getBitmap();
-                Uri photoUri = ImageUtility.savePicture(getActivity(), bitmap);
+                Uri photoUri = ImageUtility.savePicture(getActivity(), bitmap, imageParameters.folderPath);
 
                 ((CameraActivity) getActivity()).returnPhotoUri(photoUri);
             }
