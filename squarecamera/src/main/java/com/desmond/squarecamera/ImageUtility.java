@@ -61,7 +61,7 @@ public class ImageUtility {
         if (bitmap.getHeight() > bitmap.getWidth()) cropHeight = bitmap.getWidth();
         else                                        cropHeight = bitmap.getHeight();
 
-        bitmap = ThumbnailUtils.extractThumbnail(bitmap, cropHeight, cropHeight, ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
+        bitmap = ThumbnailUtils.extractThumbnail(bitmap, cropHeight, cropHeight);
 
         File mediaStorageDir = new File(folderPath);
 
